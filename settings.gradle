@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "GitTodoNote"
-include ':app'
+include ':present'
 include ':domain'
 include ':data'

@@ -1,28 +1,21 @@
 plugins {
-    id 'com.android.library'
+    id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 android {
     compileSdk 32
 
     defaultConfig {
-        minSdk 21
+        applicationId "com.example.gittodonote"
+        minSdk 26
         targetSdk 32
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-
-        defaultConfig {
-            buildConfigField "String", "GITHUB_ID", "\"${properties.getProperty("GITHUB_ID")}\""
-            buildConfigField "String", "GITHUB_PW", "\"${properties.getProperty("GITHUB_PW")}\""
-            buildConfigField "String", "GITHUB_REDIRECT_URL", "\"${properties.getProperty("GITHUB_REDIRECT_URL")}\""
-        }
     }
 
     buildTypes {
@@ -38,33 +31,46 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
-
     implementation project(path:':domain')
+    implementation project(path:':data')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //CustomTabsIntent
+    implementation "androidx.browser:browser:1.4.0"
+
+//    viewModel
+//    def  lifecycle_version = "2.5.1"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+//    //activity, fragment viewModel을 메인엑티비티에서 쓸수있게해줌
+//    def  activity_version = "1.5.1"
+//    implementation "androidx.activity:activity-ktx:$activity_version"
+//    implementation "androidx.fragment:fragment-ktx:$activity_version"
+//
+//
+    def  nav_version = "2.5.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     //Dagger Hilt
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-android-compiler:2.44"
     kapt "androidx.hilt:hilt-compiler:1.0.0"
 
-    // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
-    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-
-
-
-
-
+//    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
